@@ -53,11 +53,12 @@ x_vec = rnorm(30, mean = 5, sd = 3)
 (x_vec - mean(x_vec)) / sd(x_vec)
 ```
 
-    ##  [1] -1.3740987 -0.8652773 -0.2156249 -1.1349275 -0.3111440 -0.3284840
-    ##  [7]  0.4578049  0.4342713 -1.6489344  0.4700885  0.2043766 -0.4185670
-    ## [13]  0.6140257  0.1872011  1.0311813  2.1394772 -0.7680633 -1.1574151
-    ## [19]  0.8512004 -0.7796895  1.4139127  1.3397131 -0.3124117  0.3352007
-    ## [25] -0.8235838  1.0996898 -0.8314823  1.4982628  0.5677892 -1.6744919
+    ##  [1] -0.005606238 -0.692914308 -0.333261777 -1.006083152 -0.259697284
+    ##  [6] -0.410300557  0.687486929  0.048287254 -0.089948756 -0.917124992
+    ## [11] -0.110845371 -0.547030360 -0.751377423  1.653966449  1.611608088
+    ## [16]  1.059724588 -1.331195370 -0.794225168 -0.255457673 -1.191100184
+    ## [21]  2.332898192  0.657506438  1.320845566 -0.299749414  2.005220081
+    ## [26] -0.848909337 -0.760221861  0.226676854  0.221002469 -1.220173682
 
 I want a function to compute z-scores
 
@@ -80,11 +81,11 @@ z_scores = function(x) {
 z_scores(x_vec)
 ```
 
-    ##  [1] -1.0274343  0.3493110  2.1071104 -0.3802960  1.8486592  1.8017414
-    ##  [7]  3.9292454  3.8655692 -1.7710720  3.9624818  3.2435308  1.5579990
-    ## [13]  4.3519402  3.1970582  5.4806604  8.4794360  0.6123482 -0.4411420
-    ## [19]  4.9936766  0.5808905  6.5162375  6.3154717  1.8452291  3.5975085
-    ## [25]  0.4621234  5.6660276  0.4407520  6.7444679  4.2268357 -1.8402243
+    ##  [1]  3.0346154  0.8597877  1.9978251 -0.1311629  2.2306030  1.7540537
+    ##  [7]  5.2277488  3.2051490  2.7677330  0.1503247  2.7016105  1.3214038
+    ## [13]  0.6747946  8.2859502  8.1519169  6.4056090 -1.1599054  0.5392128
+    ## [19]  2.2440182 -0.7166066 10.4342730  5.1328825  7.2318660  2.1038672
+    ## [25]  9.3974113  0.3661774  0.6468085  3.7696217  3.7516664 -0.8086029
 
 Try my function on some other things. These should give errors.
 
@@ -140,7 +141,7 @@ mean_and_sd(x_vec)
     ## # A tibble: 1 x 2
     ##    mean    sd
     ##   <dbl> <dbl>
-    ## 1  4.27  2.71
+    ## 1  4.46  3.16
 
 Check that the function works.
 
@@ -152,7 +153,7 @@ mean_and_sd(x_vec)
     ## # A tibble: 1 x 2
     ##     mean    sd
     ##    <dbl> <dbl>
-    ## 1 0.0582 0.960
+    ## 1 0.0227 0.990
 
 ``` r
 x_vec = rnorm(100, mean = 3, sd = 4)
@@ -162,7 +163,7 @@ mean_and_sd(x_vec)
     ## # A tibble: 1 x 2
     ##    mean    sd
     ##   <dbl> <dbl>
-    ## 1  2.81  3.64
+    ## 1  3.12  4.63
 
 ## Multiple inputs
 
@@ -184,7 +185,7 @@ sim_data %>%
     ## # A tibble: 1 x 2
     ##    mean    sd
     ##   <dbl> <dbl>
-    ## 1  2.90  3.05
+    ## 1  2.90  3.27
 
 ``` r
 sim_mean_sd = function(samp_size, mu = 3, sigma = 4) {
@@ -209,7 +210,7 @@ sim_mean_sd(100, 6, 3)
     ## # A tibble: 1 x 2
     ##    mean    sd
     ##   <dbl> <dbl>
-    ## 1  6.05  3.08
+    ## 1  6.29  3.40
 
 ``` r
 sim_mean_sd(samp_size = 100, mu = 6, sigma = 3)
@@ -218,7 +219,7 @@ sim_mean_sd(samp_size = 100, mu = 6, sigma = 3)
     ## # A tibble: 1 x 2
     ##    mean    sd
     ##   <dbl> <dbl>
-    ## 1  5.90  3.03
+    ## 1  5.71  3.17
 
 ``` r
 sim_mean_sd(mu = 6, samp_size = 100,  sigma = 3)
@@ -227,7 +228,7 @@ sim_mean_sd(mu = 6, samp_size = 100,  sigma = 3)
     ## # A tibble: 1 x 2
     ##    mean    sd
     ##   <dbl> <dbl>
-    ## 1  5.90  3.05
+    ## 1  6.27  3.18
 
 ``` r
 sim_mean_sd(1000)
@@ -236,7 +237,7 @@ sim_mean_sd(1000)
     ## # A tibble: 1 x 2
     ##    mean    sd
     ##   <dbl> <dbl>
-    ## 1  3.11  4.00
+    ## 1  2.72  4.01
 
 ## Let’s review Napoleon Dynamite
 
@@ -273,19 +274,8 @@ reviews = tibble(
 reviews
 ```
 
-    ## # A tibble: 10 x 3
-    ##    title                 stars text                                             
-    ##    <chr>                 <dbl> <chr>                                            
-    ##  1 Love it!! 💜              5 Love it!! 💜                                     
-    ##  2 Funny                     5 Fiunnt                                           
-    ##  3 LOVE it                   5 cult classic. So ugly it's fun. Music , acting, …
-    ##  4 Perfect                   5 Exactly what I asked for                         
-    ##  5 Love this movie!          5 Great movie and sent in a nice package! No damag…
-    ##  6 Love it                   5 Love this movie. However the teenagers of today …
-    ##  7 As described              3 Book is as described                             
-    ##  8 GOSH!!!                   5 Just watch the movie GOSH!!!!                    
-    ##  9 Watch it right now        5 You need to watch this movie today. It’s hilario…
-    ## 10 At this point it’s a…     5 I watch this movie way too much. Have a friend o…
+    ## # A tibble: 0 x 3
+    ## # … with 3 variables: title <chr>, stars <dbl>, text <chr>
 
 What about the next page of reviews… Let’s turn that code into a
 function
@@ -361,8 +351,19 @@ read_page_reviews(dynamite_urls[5])
 all_reviews
 ```
 
-    ## # A tibble: 0 x 3
-    ## # … with 3 variables: title <chr>, stars <dbl>, text <chr>
+    ## # A tibble: 10 x 3
+    ##    title                         stars text                                     
+    ##    <chr>                         <dbl> <chr>                                    
+    ##  1 never gets old                    5 I saw this seven times in the theatres w…
+    ##  2 Rex Kwon Do!                      5 If this movie was any more amazing than …
+    ##  3 Good for some nostalgia           5 Holy cow, I watched this movie when it f…
+    ##  4 Funny                             5 Funny wholesome movie                    
+    ##  5 Voting for Pedro                  5 Arrived fast, and product as expected.   
+    ##  6 Good movie                        4 It brings back memories.  My son and I w…
+    ##  7 Awesome                           5 Great movie! Happy purchase for easy acc…
+    ##  8 Can watch it 100 times and s…     5 One of the best.                         
+    ##  9 Eat all the chips kip             5 A cult classic everyone should watch onc…
+    ## 10 “Your Mom goes college”           5 “Tina come eat your dinner”
 
 ## Mean scoping example
 
@@ -379,3 +380,30 @@ f(x = y)
 ```
 
     ## [1] 4
+
+## Functions as arguments
+
+``` r
+my_summary = function(x, sum_func)  {
+  
+  sum_func(x)
+}
+
+x_vec = rnorm(100, 3, 7)
+
+mean(x_vec)
+```
+
+    ## [1] 2.289007
+
+``` r
+median(x_vec)
+```
+
+    ## [1] 2.317581
+
+``` r
+my_summary(x_vec, IQR)
+```
+
+    ## [1] 11.72527
