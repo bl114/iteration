@@ -53,11 +53,11 @@ x_vec = rnorm(30, mean = 5, sd = 3)
 (x_vec - mean(x_vec)) / sd(x_vec)
 ```
 
-    ##  [1] -1.08229360  0.78630626 -0.75489121 -0.68064438 -1.86073529 -0.77656136
-    ##  [7] -1.44353806  0.52406653  1.92190924 -0.09582191 -0.58003094  1.82157968
-    ## [13]  0.95637448  0.51770621 -0.44592487  1.20336655 -0.58113203 -0.34809778
-    ## [19]  1.74458505  0.58930367 -0.30552237 -0.84269116 -0.30635144 -0.04464723
-    ## [25]  1.14779236  0.80479408  0.15201789 -1.63296327 -0.40274047  0.01478538
+    ##  [1] -1.3740987 -0.8652773 -0.2156249 -1.1349275 -0.3111440 -0.3284840
+    ##  [7]  0.4578049  0.4342713 -1.6489344  0.4700885  0.2043766 -0.4185670
+    ## [13]  0.6140257  0.1872011  1.0311813  2.1394772 -0.7680633 -1.1574151
+    ## [19]  0.8512004 -0.7796895  1.4139127  1.3397131 -0.3124117  0.3352007
+    ## [25] -0.8235838  1.0996898 -0.8314823  1.4982628  0.5677892 -1.6744919
 
 I want a function to compute z-scores
 
@@ -80,11 +80,11 @@ z_scores = function(x) {
 z_scores(x_vec)
 ```
 
-    ##  [1]  0.1778685  4.9972906  1.0222924  1.2137870 -1.8298588  0.9664016
-    ##  [7] -0.7538395  4.3209318  7.9261948  2.7221390  1.4732854  7.6674286
-    ## [13]  5.4359241  4.3045275  1.8191667  6.0729567  1.4704455  2.0714786
-    ## [19]  7.4688470  4.4891890  2.1812875  0.7958421  2.1791492  2.8541268
-    ## [25]  5.9296218  5.0449737  3.3613580 -1.2423978  1.9305463  3.0074131
+    ##  [1] -1.0274343  0.3493110  2.1071104 -0.3802960  1.8486592  1.8017414
+    ##  [7]  3.9292454  3.8655692 -1.7710720  3.9624818  3.2435308  1.5579990
+    ## [13]  4.3519402  3.1970582  5.4806604  8.4794360  0.6123482 -0.4411420
+    ## [19]  4.9936766  0.5808905  6.5162375  6.3154717  1.8452291  3.5975085
+    ## [25]  0.4621234  5.6660276  0.4407520  6.7444679  4.2268357 -1.8402243
 
 Try my function on some other things. These should give errors.
 
@@ -140,7 +140,7 @@ mean_and_sd(x_vec)
     ## # A tibble: 1 x 2
     ##    mean    sd
     ##   <dbl> <dbl>
-    ## 1  4.85  2.58
+    ## 1  4.27  2.71
 
 Check that the function works.
 
@@ -150,9 +150,9 @@ mean_and_sd(x_vec)
 ```
 
     ## # A tibble: 1 x 2
-    ##      mean    sd
-    ##     <dbl> <dbl>
-    ## 1 -0.0160  1.01
+    ##     mean    sd
+    ##    <dbl> <dbl>
+    ## 1 0.0582 0.960
 
 ``` r
 x_vec = rnorm(100, mean = 3, sd = 4)
@@ -162,7 +162,7 @@ mean_and_sd(x_vec)
     ## # A tibble: 1 x 2
     ##    mean    sd
     ##   <dbl> <dbl>
-    ## 1  3.13  3.92
+    ## 1  2.81  3.64
 
 ## Multiple inputs
 
@@ -184,7 +184,7 @@ sim_data %>%
     ## # A tibble: 1 x 2
     ##    mean    sd
     ##   <dbl> <dbl>
-    ## 1  3.01  2.95
+    ## 1  2.90  3.05
 
 ``` r
 sim_mean_sd = function(samp_size, mu = 3, sigma = 4) {
@@ -209,7 +209,7 @@ sim_mean_sd(100, 6, 3)
     ## # A tibble: 1 x 2
     ##    mean    sd
     ##   <dbl> <dbl>
-    ## 1  6.23  3.15
+    ## 1  6.05  3.08
 
 ``` r
 sim_mean_sd(samp_size = 100, mu = 6, sigma = 3)
@@ -218,7 +218,7 @@ sim_mean_sd(samp_size = 100, mu = 6, sigma = 3)
     ## # A tibble: 1 x 2
     ##    mean    sd
     ##   <dbl> <dbl>
-    ## 1  6.22  3.04
+    ## 1  5.90  3.03
 
 ``` r
 sim_mean_sd(mu = 6, samp_size = 100,  sigma = 3)
@@ -227,7 +227,7 @@ sim_mean_sd(mu = 6, samp_size = 100,  sigma = 3)
     ## # A tibble: 1 x 2
     ##    mean    sd
     ##   <dbl> <dbl>
-    ## 1  5.98  3.25
+    ## 1  5.90  3.05
 
 ``` r
 sim_mean_sd(1000)
@@ -236,7 +236,7 @@ sim_mean_sd(1000)
     ## # A tibble: 1 x 2
     ##    mean    sd
     ##   <dbl> <dbl>
-    ## 1  2.79  3.91
+    ## 1  3.11  4.00
 
 ## Let’s review Napoleon Dynamite
 
@@ -273,8 +273,19 @@ reviews = tibble(
 reviews
 ```
 
-    ## # A tibble: 0 x 3
-    ## # … with 3 variables: title <chr>, stars <dbl>, text <chr>
+    ## # A tibble: 10 x 3
+    ##    title                 stars text                                             
+    ##    <chr>                 <dbl> <chr>                                            
+    ##  1 Love it!! 💜              5 Love it!! 💜                                     
+    ##  2 Funny                     5 Fiunnt                                           
+    ##  3 LOVE it                   5 cult classic. So ugly it's fun. Music , acting, …
+    ##  4 Perfect                   5 Exactly what I asked for                         
+    ##  5 Love this movie!          5 Great movie and sent in a nice package! No damag…
+    ##  6 Love it                   5 Love this movie. However the teenagers of today …
+    ##  7 As described              3 Book is as described                             
+    ##  8 GOSH!!!                   5 Just watch the movie GOSH!!!!                    
+    ##  9 Watch it right now        5 You need to watch this movie today. It’s hilario…
+    ## 10 At this point it’s a…     5 I watch this movie way too much. Have a friend o…
 
 What about the next page of reviews… Let’s turn that code into a
 function
@@ -323,19 +334,8 @@ dynamite_url = "https://www.amazon.com/product-reviews/B00005JNBQ/ref=cm_cr_arp_
 read_page_reviews(dynamite_url)
 ```
 
-    ## # A tibble: 10 x 3
-    ##    title                 stars text                                             
-    ##    <chr>                 <dbl> <chr>                                            
-    ##  1 Love it!! 💜              5 Love it!! 💜                                     
-    ##  2 Funny                     5 Fiunnt                                           
-    ##  3 LOVE it                   5 cult classic. So ugly it's fun. Music , acting, …
-    ##  4 Perfect                   5 Exactly what I asked for                         
-    ##  5 Love this movie!          5 Great movie and sent in a nice package! No damag…
-    ##  6 Love it                   5 Love this movie. However the teenagers of today …
-    ##  7 As described              3 Book is as described                             
-    ##  8 GOSH!!!                   5 Just watch the movie GOSH!!!!                    
-    ##  9 Watch it right now        5 You need to watch this movie today. It’s hilario…
-    ## 10 At this point it’s a…     5 I watch this movie way too much. Have a friend o…
+    ## # A tibble: 0 x 3
+    ## # … with 3 variables: title <chr>, stars <dbl>, text <chr>
 
 Let’s read a few pages of reviews.
 
@@ -363,3 +363,19 @@ all_reviews
 
     ## # A tibble: 0 x 3
     ## # … with 3 variables: title <chr>, stars <dbl>, text <chr>
+
+## Mean scoping example
+
+``` r
+f = function(x) {
+  z = x + y
+  z
+}
+
+x = 1
+y = 2
+
+f(x = y)
+```
+
+    ## [1] 4
