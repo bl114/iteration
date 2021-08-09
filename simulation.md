@@ -133,3 +133,67 @@ ggplot(aes(x = sigma_hat)) + geom_density()
 ```
 
 <img src="simulation_files/figure-gfm/unnamed-chunk-6-2.png" width="90%" />
+
+## Let’s try other sample sizes
+
+``` r
+n_list = 
+  list(
+    "n = 30" =30, 
+    "n = 60" =60, 
+    "n = 120" =120, 
+    "n = 240" =240
+    )
+
+output = vector("list", length = 4)
+
+for (i in 1:4) {
+  
+output[[i]] = rerun(100, sim_mean_sd(n = n_list[[i]])) %>% 
+  bind_rows()
+}
+```
+
+``` r
+sim_results = 
+  tibble(
+  sample_size = c(30, 60, 120, 240)
+) %>% 
+  mutate(
+    output_lists = map(.x = sample_size, ~rerun(1000, sim_mean_sd(.x))),
+    estimate_df = map(output_lists, bind_rows)
+  ) %>% 
+  select(-output_lists) %>% 
+  unnest(estimate_df)
+```
+
+Do some data frame things.
+
+``` r
+sim_results %>% 
+  mutate(
+    sample_size = str_c("n = ", sample_size),
+    sample_size = fct_inorder(sample_size)
+  ) %>% 
+  ggplot(aes(x = sample_size, y = mu_hat)) +
+  geom_violin()
+```
+
+<img src="simulation_files/figure-gfm/unnamed-chunk-9-1.png" width="90%" />
+
+``` r
+sim_results %>% 
+  group_by(sample_size) %>% 
+  summarize(
+    avg_samp_mean = mean(mu_hat),
+    sd_samp_mean = sd(mu_hat)
+  )
+```
+
+    ## # A tibble: 4 x 3
+    ##   sample_size avg_samp_mean sd_samp_mean
+    ##         <dbl>         <dbl>        <dbl>
+    ## 1          30          2.00        0.540
+    ## 2          60          2.01        0.385
+    ## 3         120          1.99        0.281
+    ## 4         240          2.00        0.197
